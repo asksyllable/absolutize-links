@@ -16,7 +16,7 @@ if [ -d "$NODE_MODULES" ]; then
   #   find -type l: returns all symbolic links in node_modules
   #   -lname '../': finds only relative links (those beginning with a ../)
   #   -maxdepth 1 : avoids recursion, so we don't get .bin or deep links.
-  FILES=$(find $NODE_MODULES -type l -lname '../*' -maxdepth 1)
+  FILES=$(find node_modules/ -type l -lname '../*' -maxdepth 1 | sed -e 's/node_modules\/\//node_modules\//g')
   for f in $FILES; do
     # get the pointed path of this link
     l=$(readlink "$f")
